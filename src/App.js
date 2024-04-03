@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState, createContext } from "react";
+import Parent from "./components/Parent";
+
+export const ContextAPI = createContext();
 
 function App() {
+  const [todolist, setTodolist] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ContextAPI.Provider
+      value={{ todolist: todolist, setTodolist: setTodolist }}
+    >
+      <div className="App">
+        <Parent />
+        <div>
+          {todolist.map((todo, index) => {
+            return <p key={index}>{todo}</p>;
+          })}
+        </div>
+      </div>
+    </ContextAPI.Provider>
   );
 }
 
 export default App;
+
+// State management
+// App -> Parent -> Child
+
+// Global state
+
+// localstorage
+// Context API (useContext)
+// Redux
